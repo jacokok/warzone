@@ -1,5 +1,4 @@
 """Constants for the warzone integration."""
-
 DOMAIN = "warzone"
 CLIENT = "client"
 
@@ -8,4 +7,5 @@ CONF_PASSWORD = "password"
 CONF_PLATFORM = "platform"
 CONF_PROFILE = "profile"
 
-POLLING_INTERVAL = 30
+POLLING_INTERVAL = 60
+PULL_TIMEOUT = 20

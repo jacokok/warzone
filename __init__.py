@@ -13,10 +13,8 @@ PLATFORMS = ["sensor"]
 
 async def async_setup(hass: HomeAssistant, config: dict):
     hass.data[DOMAIN] = {}
-
     if DOMAIN not in config:
         return True
-
     return True
 
 

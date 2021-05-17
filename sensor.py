@@ -5,8 +5,7 @@ import logging
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import DOMAIN, HomeAssistant
-from homeassistant.exceptions import PlatformNotReady
-from .const import CLIENT, DOMAIN, CONF_PLATFORM, CONF_PROFILE, POLLING_INTERVAL
+from .const import CLIENT, DOMAIN, CONF_PLATFORM, CONF_PROFILE, POLLING_INTERVAL, PULL_TIMEOUT
 from .lib import Platform, Title, Mode
 
 import async_timeout
@@ -18,9 +17,6 @@ from homeassistant.helpers.update_coordinator import (
 
 _LOGGER = logging.getLogger(__name__)
 
-SCAN_INTERVAL = timedelta(seconds=300)
-PARALLEL_UPDATES = 4
-
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities
 ) -> None:
@@ -30,7 +26,7 @@ async def async_setup_entry(
     sensors = []
 
     async def async_update_data():
-        with async_timeout.timeout(20):
+        with async_timeout.timeout(PULL_TIMEOUT):
             results = await client.SearchPlayers(platform, profile, limit=1)
             me = results[0]
             profileResults = await me.profile(Title.ModernWarfare, Mode.Warzone)
@@ -43,7 +39,7 @@ async def async_setup_entry(
         _LOGGER,
         name=DOMAIN,
         update_method=async_update_data,
-        update_interval=timedelta(seconds=POLLING_INTERVAL),
+        update_interval=timedelta(minutes=POLLING_INTERVAL),
     )
 
     await coordinator.async_config_entry_first_refresh()
