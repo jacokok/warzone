@@ -1,23 +1,33 @@
 {
-  "title": "warzone",
+  "title": "Warzone",
   "config": {
-    "step": {
-      "user": {
-        "data": {
-          "username": "[%key:common::config_flow::data::username%]",
-          "password": "[%key:common::config_flow::data::password%]",
-          "platform": "[%key:common::config_flow::data::platform%]",
-          "profile": "[%key:common::config_flow::data::profile%]"
-        }
-      }
+    "abort": {
+      "already_configured": "Device is already configured"
     },
     "error": {
-      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
-      "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
-      "unknown": "[%key:common::config_flow::error::unknown%]"
+      "cannot_connect": "Failed to connect",
+      "invalid_auth": "Invalid authentication",
+      "unknown": "Unexpected error"
     },
-    "abort": {
-      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
+    "step": {
+      "user": {
+        "description": "Connection config to get warzone data",
+        "data": {
+          "username": "Username",
+          "password": "Password",
+          "platform": "Platform",
+          "profile": "Profile"
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "polling": "Polling interval (minutes)"
+        }
+      }
     }
   }
 }

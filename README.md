@@ -5,12 +5,41 @@
 
 This is a warzone integration for home assistant
 
-## TODO
+This integration exposes a sensor for the current battle royal data from warzone.
 
-- [ ] Add hacks functionality
-- [ ] Error handling
-- [ ] Clear messages
-- [ ] Add license
+**This component will set up the following platforms.**
+
+Platform | Description
+-- | --
+`sensor` | Show warzone battle royal stats.
+
+## Sensors
+
+Sensor | Description
+-- | --
+`sensor.warzone_cash` | Cash
+`sensor.warzone_contracts` | Contracts
+`sensor.warzone_deaths` | Deaths
+`sensor.warzone_downs` | Downs
+`sensor.warzone_gamesplayed` | Games Played
+`sensor.warzone_kdratio` | Kill Death Ratio
+`sensor.warzone_kills` | Kills
+`sensor.warzone_level` | Current Season Level
+`sensor.warzone_revives` | Revives
+`sensor.warzone_score` | Score
+`sensor.warzone_scoreperminute` | Score Per Minute
+`sensor.warzone_timeplayed` | Time Played
+`sensor.warzone_tokens` | Tokens
+`sensor.warzone_topfive` | Top 5
+`sensor.warzone_topten` | Top 10
+`sensor.warzone_toptwentyfive` | Top 25
+`sensor.warzone_wins` | Wins
+
+## Libraries
+
+Thanks to https://github.com/EthanC/CallofDuty.py
+
+Using this in lib because of python version mismatch. When home assistant runs on python 3.9 by default we can use this like normal.
 
 <!---->
 

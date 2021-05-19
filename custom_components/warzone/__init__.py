@@ -4,7 +4,7 @@ from __future__ import annotations
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 import logging
-from .const import CLIENT, CONF_PASSWORD, CONF_USER, DOMAIN
+from .const import CLIENT, CONF_PASSWORD, CONF_USERNAME, DOMAIN
 from .lib import Login
 
 _LOGGER = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up warzone from a config entry."""
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = {
-        CLIENT: await Login(entry.data.get(CONF_USER), entry.data.get(CONF_PASSWORD)),
+        CLIENT: await Login(entry.data.get(CONF_USERNAME), entry.data.get(CONF_PASSWORD)),
     }
     hass.config_entries.async_setup_platforms(entry, PLATFORMS)
     return True

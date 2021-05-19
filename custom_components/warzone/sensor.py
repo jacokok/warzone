@@ -5,7 +5,7 @@ import logging
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import DOMAIN, HomeAssistant
-from .const import CLIENT, DOMAIN, CONF_PLATFORM, CONF_PROFILE, POLLING_INTERVAL, PULL_TIMEOUT
+from .const import CLIENT, CONF_POLLING_INTERVAL, DOMAIN, CONF_PLATFORM, CONF_PROFILE, POLLING_INTERVAL, PULL_TIMEOUT
 from .lib import Platform, Title, Mode
 
 import async_timeout
@@ -34,12 +34,14 @@ async def async_setup_entry(
             finalResults["level"] = profileResults["level"]
             return finalResults
 
+    polling = entry.options.get(CONF_POLLING_INTERVAL, POLLING_INTERVAL)
+
     coordinator = DataUpdateCoordinator(
         hass,
         _LOGGER,
         name=DOMAIN,
         update_method=async_update_data,
-        update_interval=timedelta(minutes=POLLING_INTERVAL),
+        update_interval=timedelta(minutes=polling),
     )
 
     await coordinator.async_config_entry_first_refresh()
