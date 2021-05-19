@@ -1,5 +1,6 @@
 # Warzone Integration
 
+[![GitHub Release][releases-shield]][releases]
 [![License][license-shield]](LICENSE)
 [![hacs][hacsbadgecustom]][hacs]
 
@@ -60,3 +61,5 @@ Using this in lib because of python version mismatch. When home assistant runs o
 [hacsbadge]: https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge
 [hacsbadgecustom]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge
 [license-shield]: https://img.shields.io/github/license/jacokok/warzone.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/v/release/jacokok/warzone?style=for-the-badge
+[releases]: https://github.com/jacokok/warzone/releases
