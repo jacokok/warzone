@@ -15,16 +15,16 @@ from homeassistant.core import callback
 import homeassistant.helpers.config_validation as cv
 from .lib import Login
 from .lib import Platform
-from .const import CONF_PLATFORM_PLAYSTATION, CONF_PLATFORM_XBOX, CONF_POLLING_INTERVAL, DOMAIN, CONF_PASSWORD, CONF_PLATFORM, CONF_PROFILE, CONF_USERNAME, POLLING_INTERVAL
+from .const import CONF_POLLING_INTERVAL, DOMAIN, CONF_PASSWORD, CONF_PLATFORM, CONF_PROFILE, CONF_USERNAME, PLATFORM_TYPES, POLLING_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
 # STEP_USER_DATA_SCHEMA = vol.Schema({CONF_USER: str, CONF_PASSWORD: str, vol.Required(CONF_PLATFORM): vol.In([CONF_PLATFORM_XBOX, CONF_PLATFORM_PLAYSTATION]), CONF_PROFILE: str})
 STEP_USER_DATA_SCHEMA = vol.Schema({
     vol.Required(CONF_USERNAME): str,
-    vol.Required(CONF_PASSWORD, CONF_PASSWORD, "", CONF_PASSWORD): str,
-    vol.Required(CONF_PLATFORM): vol.In([CONF_PLATFORM_XBOX, CONF_PLATFORM_PLAYSTATION]),
-    vol.Required(CONF_PROFILE, CONF_PROFILE, "MajorNelson", CONF_PROFILE): str,
+    vol.Required(CONF_PASSWORD): str,
+    vol.Required(CONF_PLATFORM): vol.In(PLATFORM_TYPES),
+    vol.Required(CONF_PROFILE): str,
 })
 
 class Warzone:

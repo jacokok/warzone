@@ -5,11 +5,13 @@ CLIENT = "client"
 CONF_USERNAME = "username"
 CONF_PASSWORD = "password"
 CONF_PLATFORM = "platform"
-CONF_PLATFORM_XBOX = "xbl"
-CONF_PLATFORM_STEAM = "steam"
-CONF_PLATFORM_BATTLENET = "battle"
-CONF_PLATFORM_ACTIVISION = "uno"
-CONF_PLATFORM_PLAYSTATION = "psn"
+PLATFORM_TYPES = {
+    "xbl": "Xbox",
+    "uno": "Activision",
+    "battle": "Battle.Net",
+    "steam": "Steam",
+    "psn": "Playstation"
+}
 
 CONF_PROFILE = "profile"
 
