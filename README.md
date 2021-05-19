@@ -35,6 +35,10 @@ Sensor | Description
 `sensor.warzone_toptwentyfive` | Top 25
 `sensor.warzone_wins` | Wins
 
+## Installation
+
+1. Go to "Configuration" -> "Integrations" click "+" and search for "Warzone".
+
 ## Libraries
 
 Thanks to https://github.com/EthanC/CallofDuty.py
