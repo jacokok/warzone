@@ -37,7 +37,16 @@ Sensor | Description
 
 ## Installation
 
-1. Go to "Configuration" -> "Integrations" click "+" and search for "Warzone".
+- Go to "Configuration" -> "Integrations" click "+" and search for "Warzone".
+
+## Configuration
+
+- Username: The email address you would use to login to https://profile.callofduty.com/
+- Password: The password you would use to login to https://profile.callofduty.com/
+- Platform: The platform the profile is on
+- Profile: The player profile stats you want to track
+
+>Please note the Username and password used to login does not have to be your main account. You can create a new account to access the api but then you have to either set the profile you want to track to public or add the user you are logging in from as a friend.
 
 ## Libraries
 
