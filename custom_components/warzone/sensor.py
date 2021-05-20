@@ -48,7 +48,7 @@ async def async_setup_entry(
 
     for idx, ent in enumerate(coordinator.data):
         sensors.append(
-            WarzoneSensor(coordinator, ent, coordinator.data[ent])
+            WarzoneSensor(coordinator, ent, coordinator.data[ent], profile)
         )
     async_add_entities(sensors, True)
 
@@ -56,16 +56,17 @@ async def async_setup_entry(
 class WarzoneSensor(CoordinatorEntity, SensorEntity):
     """Representation of a Sensor."""
 
-    def __init__(self, coordinator, name, state):
+    def __init__(self, coordinator, sensor, state, profile):
         """Initialize the sensor."""
         super().__init__(coordinator)
         self._state = state
-        self._name = DOMAIN + "_" + name
+        self._sensor = sensor
+        self._profile = profile
 
     @property
     def name(self):
         """Return the name of the sensor."""
-        return self._name
+        return self._profile + "_" + DOMAIN + "_" + self._sensor
 
     @property
     def state(self):

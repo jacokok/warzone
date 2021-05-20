@@ -52,7 +52,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     if not await wz.authenticate():
          raise InvalidAuth
 
-    return {"title": "Warzone"}
+    return {"title": "Warzone - " + data[CONF_PROFILE]}
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for warzone."""
