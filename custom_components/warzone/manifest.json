@@ -5,7 +5,7 @@
   "config_flow": true,
   "documentation": "https://github.com/jacokok/warzone",
   "issue_tracker": "https://github.com/jacokok/warzone/issues",
-  "requirements": ["httpx==0.18.1"],
+  "requirements": [],
   "ssdp": [],
   "zeroconf": [],
   "homekit": {},
