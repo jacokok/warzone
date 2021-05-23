@@ -1,7 +1,6 @@
 """Constants for the warzone integration."""
-DOMAIN = "warzone"
-CLIENT = "client"
 
+DOMAIN = "warzone"
 CONF_USERNAME = "username"
 CONF_PASSWORD = "password"
 CONF_PLATFORM = "platform"

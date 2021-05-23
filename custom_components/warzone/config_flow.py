@@ -13,8 +13,7 @@ from homeassistant.data_entry_flow import FlowResult
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.core import callback
 import homeassistant.helpers.config_validation as cv
-from .lib import Login
-from .lib import Platform
+from .lib import Login, Platform
 from .const import CONF_POLLING_INTERVAL, DOMAIN, CONF_PASSWORD, CONF_PLATFORM, CONF_PROFILE, CONF_USERNAME, PLATFORM_TYPES, POLLING_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
