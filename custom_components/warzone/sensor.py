@@ -5,14 +5,15 @@ import logging
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import DOMAIN, HomeAssistant
-from .const import CLIENT, CONF_POLLING_INTERVAL, DOMAIN, CONF_PLATFORM, CONF_PROFILE, POLLING_INTERVAL, PULL_TIMEOUT
-from .lib import Platform, Title, Mode
+from .const import CONF_POLLING_INTERVAL, DOMAIN, CONF_PLATFORM, CONF_PROFILE, POLLING_INTERVAL, PULL_TIMEOUT, CONF_USERNAME, CONF_PASSWORD
+from .lib import Platform, Title, Mode, Login
 
 import async_timeout
 
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
-    DataUpdateCoordinator
+    DataUpdateCoordinator,
+    UpdateFailed
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -20,19 +21,24 @@ _LOGGER = logging.getLogger(__name__)
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities
 ) -> None:
-    client = hass.data[DOMAIN][entry.entry_id][CLIENT]
     profile = entry.data.get(CONF_PROFILE)
     platform = Platform(entry.data.get(CONF_PLATFORM))
+    username = entry.data.get(CONF_USERNAME)
+    password = entry.data.get(CONF_PASSWORD)
     sensors = []
 
     async def async_update_data():
         with async_timeout.timeout(PULL_TIMEOUT):
-            results = await client.SearchPlayers(platform, profile, limit=1)
-            me = results[0]
-            profileResults = await me.profile(Title.ModernWarfare, Mode.Warzone)
-            finalResults = profileResults["lifetime"]["mode"]["br"]["properties"]
-            finalResults["level"] = profileResults["level"]
-            return finalResults
+            try:
+                client = await Login(username, password)
+                results = await client.SearchPlayers(platform, profile, limit=1)
+                me = results[0]
+                profileResults = await me.profile(Title.ModernWarfare, Mode.Warzone)
+                finalResults = profileResults["lifetime"]["mode"]["br"]["properties"]
+                finalResults["level"] = profileResults["level"]
+                return finalResults
+            except Exception as exception:
+                raise UpdateFailed(exception)
 
     polling = entry.options.get(CONF_POLLING_INTERVAL, POLLING_INTERVAL)
 
@@ -48,7 +54,7 @@ async def async_setup_entry(
 
     for idx, ent in enumerate(coordinator.data):
         sensors.append(
-            WarzoneSensor(coordinator, ent, coordinator.data[ent], profile)
+            WarzoneSensor(coordinator, ent, profile)
         )
     async_add_entities(sensors, True)
 
@@ -56,10 +62,9 @@ async def async_setup_entry(
 class WarzoneSensor(CoordinatorEntity, SensorEntity):
     """Representation of a Sensor."""
 
-    def __init__(self, coordinator, sensor, state, profile):
+    def __init__(self, coordinator, sensor, profile):
         """Initialize the sensor."""
         super().__init__(coordinator)
-        self._state = state
         self._sensor = sensor
         self._profile = profile
 
@@ -71,4 +76,4 @@ class WarzoneSensor(CoordinatorEntity, SensorEntity):
     @property
     def state(self):
         """Return the state of the sensor."""
-        return self._state
+        return self.coordinator.data[self._sensor]
