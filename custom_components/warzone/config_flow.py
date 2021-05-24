@@ -18,7 +18,6 @@ from .const import CONF_POLLING_INTERVAL, DOMAIN, CONF_PASSWORD, CONF_PLATFORM, 
 
 _LOGGER = logging.getLogger(__name__)
 
-# STEP_USER_DATA_SCHEMA = vol.Schema({CONF_USER: str, CONF_PASSWORD: str, vol.Required(CONF_PLATFORM): vol.In([CONF_PLATFORM_XBOX, CONF_PLATFORM_PLAYSTATION]), CONF_PROFILE: str})
 STEP_USER_DATA_SCHEMA = vol.Schema({
     vol.Required(CONF_USERNAME): str,
     vol.Required(CONF_PASSWORD): str,
@@ -101,9 +100,7 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
     async def async_step_init(self, user_input=None):
         """Handle the initial step."""
         if user_input is not None:
-            options = {**self._config_entry.options}
-            options.update(user_input)
-            return self.async_create_entry(title="", data=options)
+            return self.async_create_entry(title="", data=user_input)
 
         polling = self._config_entry.options.get(CONF_POLLING_INTERVAL, POLLING_INTERVAL)
 
