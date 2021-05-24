@@ -38,6 +38,7 @@ async def async_setup_entry(
                 finalResults["level"] = profileResults["level"]
                 return finalResults
             except Exception as exception:
+                _LOGGER.error("Failed to update warzone", exc_info=1)
                 raise UpdateFailed(exception)
 
     polling = entry.options.get(CONF_POLLING_INTERVAL, POLLING_INTERVAL)
